@@ -6,7 +6,7 @@ import Dog from "../components/Dog";
 import axios from "axios";
 
 
-const apiHost = "MOCK API URL";
+const apiHost = "https://5ea568a42d86f00016b45bff.mockapi.io";
 
 class Homepage extends React.Component {
     constructor(props){
@@ -81,7 +81,11 @@ class Homepage extends React.Component {
                 <ul>
                     {
                         dogs.map((dog) => {
-                            return <Dog toggle={this.toggle} id={dog.id} getStatus={this.getStatus} {...dog}/>
+                            return <Dog 
+                            toggle={this.toggle} 
+                            id={dog.id} 
+                            getStatus={this.getStatus} 
+                            {...dog}/>
                         })
                     }
                 </ul>
