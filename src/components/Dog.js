@@ -2,6 +2,7 @@ import React from 'react';
 import FavoriteActions from "./FavoriteActions";
 import {Card} from 'reactstrap'; 
 import { Link, Switch } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const Dog = ({id, name, toggle, getStatus}) => {
     return <li key={id}>
@@ -29,5 +30,14 @@ const styles = { // reacstrap stil ekler
         margin: "0.3rem"
     }
 }
+Dog.propTypes = {
+    id : PropTypes.string.isRequired,
+    name : PropTypes.string.isRequired
+}
+
+Dog.defaultProps = {
+    id : "Bilgi yok", 
+    name: "Bilgi yok"
+    }
 
 export default Dog;
