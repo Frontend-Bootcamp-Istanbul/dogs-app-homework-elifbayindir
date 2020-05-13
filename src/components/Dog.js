@@ -4,16 +4,17 @@ import {Card} from 'reactstrap';
 import { Link, Switch } from "react-router-dom";
 import PropTypes from "prop-types";
 
-const Dog = ({id, name, toggle, getStatus}) => {
+const Dog = ({id, name, toggle, getStatus, favoriteStatus}) => {
     return <li key={id}>
-            <Link to={`/detail/${id}`}>
+            <Link to={`/detail/${id}`}> {/* Alternative {'/details/' + id} */}
                 {name}
             </Link>
             <Card style={styles.card}>
                 <FavoriteActions 
                 toggle={toggle} 
                 id={id} 
-                getStatus={getStatus}/>
+                getStatus={getStatus}
+                favoriteStatus={favoriteStatus} />
             </Card>
          </li>
 };

@@ -8,10 +8,11 @@ const DogInfo = (props) => {
     return (
         <div>
             <li>
-                <h5>{chosenOne.name}</h5>
-                <h5>{chosenOne.description}</h5>
-                <h5>{chosenOne.breed}</h5>
-                <h5>{chosenOne.age}</h5>
+                <h5>Name: {chosenOne.name}</h5>
+                <h5>Description: {chosenOne.description}</h5>
+                <h5>Breed: {chosenOne.breed}</h5>
+                <h5>Ageasdfg: {chosenOne.age}</h5>
+                <img src={chosenOne.image}/>
             </li>
         </div>
     )
