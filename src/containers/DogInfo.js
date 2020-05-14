@@ -11,7 +11,7 @@ const DogInfo = (props) => {
                 <h5>Name: {chosenOne.name}</h5>
                 <h5>Description: {chosenOne.description}</h5>
                 <h5>Breed: {chosenOne.breed}</h5>
-                <h5>Ageasdfg: {chosenOne.age}</h5>
+                <h5>Age: {chosenOne.age}</h5>
                 <img src={chosenOne.image}/>
             </li>
         </div>

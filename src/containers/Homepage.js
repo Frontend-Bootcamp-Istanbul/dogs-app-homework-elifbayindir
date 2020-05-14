@@ -15,7 +15,7 @@ class Homepage extends React.Component {
         this.state = {
             favorites: [],
             loadingFavorites: false,
-            favoriteStatus: false
+            favoriteStatus: null
         }
     }
     componentDidMount() {
@@ -50,7 +50,7 @@ class Homepage extends React.Component {
             axios.delete(`${apiHost}/favorites/${foundDog.id}`).then((result) => {
                 this.setState(({
                     favorites: this.state.favorites.filter((dog) => dog.dogId !== dogId),
-                    favoriteStatus: false
+                    favoriteStatus: null
                 }))
             }).catch((err) => {
                 console.log(err);
@@ -67,10 +67,13 @@ class Homepage extends React.Component {
                 const eklenenFavori = result.data; // {id: 1, dogId: benim yolladigim dog id, createdat: date}
                 this.setState({
                     favorites: [...this.state.favorites, eklenenFavori],
-                    favoriteStatus: false
+                    favoriteStatus: null
                 })
             }).catch((err) => {
                 console.log(err);
+                this.setState(({
+                    favoriteStatus: null
+                }))
             })
             })
         }
