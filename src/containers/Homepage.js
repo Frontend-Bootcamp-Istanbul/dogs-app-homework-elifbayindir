@@ -4,7 +4,8 @@ import {Button} from "reactstrap";
 import FavoriteActions from "../components/FavoriteActions";
 import Dog from "../components/Dog";
 import axios from "axios";
-
+import {connect} from "react-redux";
+import {addFavorite, deleteFavorite} from "../redux/actions";
 
 const apiHost = "https://5ea568a42d86f00016b45bff.mockapi.io";
 
@@ -109,4 +110,8 @@ class Homepage extends React.Component {
     }
 }
 
-export default Homepage;
+const mapDispatchToProps = { 
+    addFavorite, deleteFavorite 
+};
+
+export default connect(null, mapDispatchToProps)(Homepage);
