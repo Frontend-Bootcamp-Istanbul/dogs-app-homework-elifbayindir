@@ -4,9 +4,10 @@ import {Button} from "reactstrap";
 import FavoriteActions from "../components/FavoriteActions";
 import Dog from "../components/Dog";
 import axios from "axios";
+import {connect} from "react-redux";
+import {addFavorite, deleteFavorite} from "../redux/actions";
 
-
-const apiHost = "MOCK API URL";
+const apiHost = "https://5ea568a42d86f00016b45bff.mockapi.io";
 
 class Homepage extends React.Component {
     constructor(props){
@@ -14,7 +15,8 @@ class Homepage extends React.Component {
 
         this.state = {
             favorites: [],
-            loadingFavorites: false
+            loadingFavorites: false,
+            favoriteStatus: null
         }
     }
     componentDidMount() {
@@ -32,7 +34,7 @@ class Homepage extends React.Component {
                     loadingFavorites: false
                 })
             }).catch((err) => {
-                console.log("Axios err", err);
+                console.true("Axios err", err);
                 this.setState(({
                     loadingFavorites: false
                 }))
@@ -43,24 +45,37 @@ class Homepage extends React.Component {
     toggle = (dogId)=>{
         const foundDog = this.state.favorites.find((favorite) => favorite.dogId === dogId);
         if(foundDog){
+            this.setState({
+                favoriteStatus: true
+            }, () => {
             axios.delete(`${apiHost}/favorites/${foundDog.id}`).then((result) => {
                 this.setState(({
-                    favorites: this.state.favorites.filter((dog) => dog.dogId !== dogId)
+                    favorites: this.state.favorites.filter((dog) => dog.dogId !== dogId),
+                    favoriteStatus: null
                 }))
             }).catch((err) => {
                 console.log(err);
             });
+            })
         }else{
             // window.localStorage.setItem("favorites", JSON.stringify(this.state.favorites));
+            this.setState({
+                favoriteStatus: true
+            }, () => {
             axios.post(`${apiHost}/favorites`, {
                 dogId
             }).then((result) => {
                 const eklenenFavori = result.data; // {id: 1, dogId: benim yolladigim dog id, createdat: date}
                 this.setState({
-                    favorites: [...this.state.favorites, eklenenFavori]
+                    favorites: [...this.state.favorites, eklenenFavori],
+                    favoriteStatus: null
                 })
             }).catch((err) => {
                 console.log(err);
+                this.setState(({
+                    favoriteStatus: null
+                }))
+            })
             })
         }
     }
@@ -81,7 +96,12 @@ class Homepage extends React.Component {
                 <ul>
                     {
                         dogs.map((dog) => {
-                            return <Dog toggle={this.toggle} id={dog.id} getStatus={this.getStatus} {...dog}/>
+                            return <Dog 
+                            favoriteStatus={this.state.favoriteStatus}
+                            toggle={this.toggle} 
+                            id={dog.id} 
+                            getStatus={this.getStatus} 
+                            {...dog}/>
                         })
                     }
                 </ul>
@@ -90,4 +110,8 @@ class Homepage extends React.Component {
     }
 }
 
-export default Homepage;
+const mapDispatchToProps = { 
+    addFavorite, deleteFavorite 
+};
+
+export default connect(null, mapDispatchToProps)(Homepage);
